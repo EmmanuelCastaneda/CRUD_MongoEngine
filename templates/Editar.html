@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title>EDITAR PRODUCTOS</title>
+    <script>
+        function visualizarFoto(event) {
+            var imagen = document.getElementById('imagenPreview');
+            imagen.src = URL.createObjectURL(event.target.files[0]);
+        }
+    </script>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="was-validated card-body">
+            <h1 class="fs-2 fw-bold text-center mb-6">AGREGAR PRODUCTOS</h1>
+                <form action="{{ url_for('actualizar_producto', producto_id=producto['_id']) }}" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="codigo" >Código:</label>
+                        <input class="form-control" id="codigo" name="codigo"  type="text" value="{{producto['codigo']}}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombre" >Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" value="{{producto['nombre']}}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="precio" >Precio:</label>
+                        <input type="text" class="form-control" id="precio" name="precio" value="{{producto['precio']}}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="categoria" >Categoría:</label>
+                        <select class="form-control" id="categoria" name="categoria" >
+                            {% for cat in categorias %}
+                                <option value="{{ cat['_id'] }}" {% if cat['_id'] == producto['categoria'] %} selected {% endif %}>{{ cat['nombre'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>FOTO:</label>
+                        <img src="../static/img/{{ producto['_id'] }}.jpg" alt="" class="img-thumbnail" width="80" height="80">
+                    </div>
+                    <div class="mb-3">
+                        <label for="imagen">Foto Actualizada</label>
+                        <input type="file" class="form-control" id="imagen" name="imagen" onchange="visualizarFoto(event)">
+                        <img id="AntiguaImagen" src="" alt="Vista previa " class="img-thumbnail mt-2" style="width: 100px; height: 100px;">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Actualizalo</button>
+                </form>
+        </div>
+    </div>
+</body>
+</html>
