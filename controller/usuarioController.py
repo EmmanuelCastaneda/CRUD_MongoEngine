@@ -73,7 +73,7 @@ def login():
         recaptcha_response = request.form.get("g-recaptcha-response") 
         url = 'https://www.google.com/recaptcha/api/siteverify'
         values ={
-            'secret': '6Lfk2MYpAAAAACamgvV3nWjGQvB46OTnEAvwiQjj',
+            'secret': '6LfAqdwpAAAAAPhKRGmn6EoHPYP3s3hT2NhXpA3J',
             'response': recaptcha_response 
         }
         data = urllib.parse.urlencode(values).encode()
